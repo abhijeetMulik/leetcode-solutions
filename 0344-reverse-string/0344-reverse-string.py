@@ -3,11 +3,10 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        s[:] = s[::-1]
-        # right = len(s)-1
-        # i=0
-        # while i < right:
-        #     s[i], s[right] = s[right], s[i]
-        #     right -=1
-        #     i +=1
-            
+        # s = s[::-1]
+        right = 0
+        left = len(s) - 1
+        while right <= left:
+            s[right], s[left] = s[left], s[right]
+            right += 1
+            left -= 1
