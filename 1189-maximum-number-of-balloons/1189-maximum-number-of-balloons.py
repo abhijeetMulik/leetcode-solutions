@@ -1,10 +1,8 @@
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
-        c = Counter(text)
-        default = Counter("balloon")
-        ans = float('inf')
-
-        for key in default.keys():
-            ans = min(ans, c[key]//default[key])
-
-        return ans
+        balloon = Counter('balloon')
+        count = Counter(text)
+        result = float('inf')
+        for i in balloon:
+            result = min(result, count[i]//balloon[i])
+        return result
