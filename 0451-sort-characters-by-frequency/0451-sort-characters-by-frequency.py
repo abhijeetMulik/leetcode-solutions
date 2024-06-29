@@ -1,13 +1,9 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
         freq = Counter(s)
+        sorted_freq = dict(sorted(freq.items(), key = lambda x: x[1], reverse = True))
         ans = []
-        sorted_dic = dict(sorted(freq.items(), key=lambda item: item[1], reverse = True))
-        for k, v in sorted_dic.items():
-            c = 0
-            while c != v:
-                ans.append(k)
-                c += 1
+        for k in sorted_freq:
+            ans.append(k * sorted_freq[k])
 
         return ''.join(ans)
-        
