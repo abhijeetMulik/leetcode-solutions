@@ -1,8 +1,9 @@
 class Solution:
     def findLucky(self, arr: List[int]) -> int:
-        ans = 0
-        freq = Counter(arr)
-        for k, v in freq.items():
+        dic = Counter(arr)
+        ans = -1
+        for k, v in dic.items():
             if k == v:
                 ans = max(ans, k)
-        return ans if ans > 0 else -1
+        return ans
+        
