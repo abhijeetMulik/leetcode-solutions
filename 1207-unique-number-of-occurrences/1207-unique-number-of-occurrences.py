@@ -1,10 +1,12 @@
 class Solution:
     def uniqueOccurrences(self, arr: List[int]) -> bool:
-        count= Counter(arr)
+        dic = Counter(arr)
         seen = set()
-        for i in count.values():
-            if i in seen:
+        for k in dic:
+            if dic[k] in seen:
                 return False
-            seen.add(i)
+            else:
+                seen.add(dic[k])
         return True
+
         
