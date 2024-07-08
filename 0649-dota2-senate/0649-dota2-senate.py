@@ -14,11 +14,8 @@ class Solution:
             rTurn = R.popleft()
 
             if rTurn < dTurn:
-                R.append(dTurn + len(senate))
+                R.append(rTurn + len(senate))
             else:
-                D.append(rTurn + len(senate))
+                D.append(dTurn + len(senate))
         
-        print('D', D)
-        print('R',R)
-            
         return "Radiant" if R else "Dire"
