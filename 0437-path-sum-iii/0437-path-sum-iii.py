@@ -9,20 +9,22 @@ class Solution:
         dic = defaultdict(int)
         dic[0] = 1
 
-        def helper(node, curr):
+        def helper(node, total):
             ans = 0
             if node:
+                total += node.val
+                ans = dic[total - targetSum]
+                dic[total] += 1
 
-                curr += node.val
-                ans = dic[curr - targetSum]
-                dic[curr] += 1
-                left = helper(node.left, curr)
-                right = helper(node.right, curr)
+                left = helper(node.left, total)
+                right = helper(node.right, total)
                 ans += left + right
-
-                dic[curr] -= 1
+                dic[total] -= 1
+                
             
-            return ans    
-
-        return helper(root, 0)     
+            return ans
+        
+        return helper(root, 0)
+            
+   
         
