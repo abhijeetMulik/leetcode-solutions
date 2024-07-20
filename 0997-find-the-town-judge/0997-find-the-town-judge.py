@@ -1,28 +1,15 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        graph = defaultdict(list)
-        if not trust:
-            if n == 1:
-                return n
-            else:
-                return -1
+        indegree = defaultdict(int)
+        outdegree = defaultdict(int)
 
-        for i in trust:
-            graph[i[0]].append(i[1])
-        seen = set()
-        for s in graph[trust[0][0]]:
-            seen.add(s)
-        if len(graph) != n - 1:
-            return -1
-        for n in graph:
-            for t in graph[n]:
-                if t not in seen:
-                    print('discarded: ', t)
-                    seen.discard(t)
-        # print(seen)
-        for judge in seen:
-            if judge not in graph:
-                return judge
+        for t in trust:
+            outdegree[t[0]] += 1
+            indegree[t[1]] += 1
+        
+        for i in range(1, n + 1):
+            if indegree[i] == n - 1 and outdegree[i] == 0:
+                return i
 
         return -1
         
