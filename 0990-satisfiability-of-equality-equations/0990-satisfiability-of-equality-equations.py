@@ -10,7 +10,7 @@ class Solution:
         
         for eq in equations:
             if eq[1] == '=':
-                parent[find(ord(eq[0]) - ord('a'))] = find(ord(eq[3]) - ord('a'))
+                parent[find(ord(eq[3]) - ord('a'))] = find(ord(eq[0]) - ord('a'))
     
         for eq in equations:
             if eq[1] == '!':
