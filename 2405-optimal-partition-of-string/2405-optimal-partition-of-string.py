@@ -1,15 +1,16 @@
 class Solution:
     def partitionString(self, s: str) -> int:
-        result = []
-        tmp =[]
-        for c in s:
-            if c not in tmp:
-                tmp.append(c)
+        seen =set()
+        count = 1
+        for i in s:
+            if i not in seen:
+                seen.add(i)
             else:
-                # print(tmp)
-                result.append(tmp)
-                tmp = [c]
-        result.append(tmp)
-        # print('res: ', result)
-        return len(result)
+                count += 1
+                seen = {i}
+        return count
+
+            
+            
+
         
