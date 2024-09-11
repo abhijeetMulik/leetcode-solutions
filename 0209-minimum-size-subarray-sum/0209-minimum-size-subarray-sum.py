@@ -4,11 +4,13 @@ class Solution:
         curr = left = 0
         for right in range(len(nums)):
             curr += nums[right]
-
             while curr >= target:
                 ans = min(ans, right - left + 1)
                 curr -= nums[left]
                 left += 1
-    
-        return 0 if ans == float('inf') else ans
+            
+            # if curr == target:
+            #     ans = min(ans, right - left + 1)
+        
+        return ans if ans != float('inf') else 0
         
