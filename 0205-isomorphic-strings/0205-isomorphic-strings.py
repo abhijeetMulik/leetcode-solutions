@@ -1,17 +1,19 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        dic = {}
+        dic = defaultdict(str)
         if len(s) != len(t):
             return False
-        for i,n in enumerate(s):
-            if n in dic :
-                if dic[n] != t[i]:
-                    return False
+        for i in range(len(s)):
+            if s[i] not in dic and t[i] not in dic.values():
+                print(s[i])
+                dic[s[i]] = t[i]
             else:
-                if t[i] in dic.values():
+                if dic[s[i]] != t[i]:
                     return False
-            dic[n] = t[i]
         return True
+
+
+
 
 
         
