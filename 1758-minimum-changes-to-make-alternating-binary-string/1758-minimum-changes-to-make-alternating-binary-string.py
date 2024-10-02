@@ -1,6 +1,5 @@
 class Solution:
     def minOperations(self, s: str) -> int:
-        res = float('inf')
         dx, dy = [], []
         ans = 0
         for i in range(len(s)):
@@ -16,14 +15,9 @@ class Solution:
             if s[i] != dx[i]:
                 ans += 1
 
-        res = min(res, ans)
+        ans = min(ans, len(s) - ans)
 
         # start with 1
-        ans = 0
-        for i in range(len(s)):
-            if s[i] != dy[i]:
-                ans += 1
 
-        res = min(res, ans)
 
-        return res
+        return ans
