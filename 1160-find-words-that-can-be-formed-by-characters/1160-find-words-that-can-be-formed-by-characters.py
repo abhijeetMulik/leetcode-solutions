@@ -1,21 +1,17 @@
 class Solution:
     def countCharacters(self, words: List[str], chars: str) -> int:
-        result = []
+        ans = 0
         for word in words:
-            temp = list(chars)
-            # print('word is:', word)
-            tmp = []
+            tmp = list(chars)
+            count = 0
             for w in word:
-                # tmp = []
-                if w in temp:
-                    tmp.append(w)
-                    temp.remove(w)
+                if w in tmp:
+                    tmp.remove(w)
+                    count += 1
                 else:
-                    tmp.clear()
                     break
-                # print(tmp)
-            result.append(''.join(tmp))
-        return len(''.join(result))
-                    
-            
+            if count == len(word):
+                ans += len(word)
+        
+        return ans
         
