@@ -1,25 +1,29 @@
 class Solution:
     def minOperations(self, s: str) -> int:
         res = float('inf')
-
-        # start with 0
+        dx, dy = [], []
         ans = 0
         for i in range(len(s)):
-            if(i % 2 == 0 and s[i] == '1'): 
-                print('s[i] :', s[i], 'i: ', i)
+            if i % 2 == 0:
+                dx.append('0')
+                dy.append('1')
+            else:
+                dx.append('1')
+                dy.append('0')
+
+        # start with 0
+        for i in range(len(s)):
+            if s[i] != dx[i]:
                 ans += 1
-            elif (i % 2 == 1 and s[i] == '0'):
-                print('s[i] :', s[i], 'i: ', i)
-                ans += 1
+
         res = min(res, ans)
 
         # start with 1
         ans = 0
         for i in range(len(s)):
-            if  (i % 2 == 0 and s[i] == '0'):
+            if s[i] != dy[i]:
                 ans += 1
-            elif (i % 2 == 1 and s[i] == '1'):
-                ans += 1
+
         res = min(res, ans)
 
         return res
