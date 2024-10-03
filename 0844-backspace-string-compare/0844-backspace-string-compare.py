@@ -1,15 +1,17 @@
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        def helper(string):
-            ans = []
-            for right in range(len(string)):
-                if string[right] == '#':
-                    if len(ans) > 0:
-                        ans.pop()
-                else:
-                    ans.append(string[right])
-            return ans
-                    
-        # print(helper(s))
-        # print(helper(t))
-        return helper(s) == helper(t)
+
+        def compare(input: str) -> str:
+            stack = []
+            for i in input:
+                if i != '#':
+                    stack.append(i)
+                elif stack and i == '#':
+                    stack.pop()
+            
+            return ''.join(stack)
+        
+        return compare(s) == compare(t)
+
+
+        
