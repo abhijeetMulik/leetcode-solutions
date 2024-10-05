@@ -2,19 +2,14 @@ class MovingAverage:
 
     def __init__(self, size: int):
         self.size = size
-        self.de = deque()
-        self.total = 0
+        self.queue = deque()
         
 
     def next(self, val: int) -> float:
-        self.de.append(val)
-        if len(self.de) > self.size:
-            self.total -= self.de[0]
-            self.de.popleft()
-        self.total += val
-        return self.total / len(self.de)
-
-        
+        self.queue.append(val)
+        if len(self.queue) > self.size:
+            self.queue.popleft()
+        return sum(self.queue) / len(self.queue)
 
 
 # Your MovingAverage object will be instantiated and called as such:
