@@ -1,7 +1,7 @@
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
-        count = ans = 0
-        hmap = {}
+        ans = count = 0
+        dic = defaultdict(int)
         for i, n in enumerate(nums):
             if n == 0:
                 count += 1
@@ -9,11 +9,12 @@ class Solution:
                 count -= 1
             if count == 0:
                 ans = max(ans, i + 1)
-            if count not in hmap:
-                hmap[count] = i
+            
+            if count not in dic:
+                dic[count] = i
             else:
-                ans = max(ans, i - hmap[count])
+                ans = max(ans, i - dic[count])
+            
         return ans
-
 
         
