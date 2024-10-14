@@ -21,9 +21,9 @@ class Solution:
 
             return ans
         
-        ans1 = helper(root1, ans1)
-        ans2 = helper(root2, ans2)
+        
+       
 
-        return ans1 == ans2
+        return helper(root1, ans1) ==  helper(root2, ans2)
 
         
