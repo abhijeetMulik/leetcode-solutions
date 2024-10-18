@@ -6,18 +6,15 @@ class SeatManager:
         
 
     def reserve(self) -> int:
-        if not self.heap:
+        if self.heap:
+            return heapq.heappop(self.heap)
+        else:
             self.count += 1
             return self.count
-        return heapq.heappop(self.heap)
         
 
     def unreserve(self, seatNumber: int) -> None:
-        if seatNumber == self.count:
-            self.count -= 1
-        else:
-            heapq.heappush(self.heap, seatNumber)
-        
+        heapq.heappush(self.heap, seatNumber)
         
 
 
