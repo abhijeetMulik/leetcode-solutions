@@ -5,7 +5,7 @@ class Solution:
         end = len(costs) - 1
         left = []
         right = []
-        while k > 0:
+        for i in range(k):
             while len(left) < candidates and start <= end:
                 heapq.heappush(left, costs[start])
                 start += 1
@@ -20,7 +20,6 @@ class Solution:
                 cost += heapq.heappop(left)
             else:
                 cost += heapq.heappop(right)
-            k -= 1
         return cost
 
         
