@@ -1,26 +1,27 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        def valid(row, col):
+            return 0 <= row < m and 0 <= col < n and grid[row][col] == 0
         if grid[0][0] == 1:
             return -1
-
-        q = deque([(0, 0, 1)]) #r, c, s
-        n = len(grid)
+        
+        m = n = len(grid)
+        queue = deque([(0,0,1)]) #row, col, steps
+        directions = [(0,1), (0,-1), (-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1)]
         seen = {(0,0)}
-        directions = [(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)]
 
-        def valid(r, c):
-            return 0 <= r < n and 0 <= c < n and grid[r][c] == 0
+        while queue:
+            row, col, steps = queue.popleft()
+            if row == (n-1) and col == (n-1):
+                return steps
+            
+            for dx, dy in directions:
+                new_row, new_col = row + dx, col + dy
+                if valid(new_row, new_col) and (new_row, new_col) not in seen:
+                    seen.add((new_row, new_col))
+                    queue.append((new_row, new_col, steps + 1))
+        
 
-        while q:
-            r, c, s = q.popleft()
-            if (r, c) == (n-1, n-1):
-                return s
-            
-            for x, y in directions:
-                new_r, new_c = r + y, c + x
-                if valid(new_r, new_c) and (new_r, new_c) not in seen:
-                    seen.add((new_r, new_c))
-                    q.append((new_r, new_c, s + 1))
-            
         return -1
 
+        
