@@ -10,26 +10,24 @@ class Solution:
         def dfs(node, parent):
             if not node:
                 return
-
+            
             node.parent = parent
             dfs(node.left, node)
             dfs(node.right, node)
         
         dfs(root, None)
-        q = deque([target])
+        queue = deque([target])
         seen = {target}
         distance = 0
 
-        while q and distance < k:
-            curr_len = len(q)
-            for i in range(curr_len):
-                node = q.popleft()
-                for n in [node.left, node.right, node.parent]:
-                    if n and n not in seen:
-                        seen.add(n)
-                        q.append(n)
+        while queue and distance < k:
+            curr_len = len(queue)
+            for _ in range(curr_len):
+                node =  queue.popleft()
+                for neighbor in [node.left, node.right, node.parent]:
+                    if neighbor and neighbor not in seen:
+                        seen.add(neighbor)
+                        queue.append(neighbor)
             distance += 1
         
-        return [node.val for node in q]
-
-        
+        return [node.val for node in queue]
