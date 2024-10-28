@@ -1,29 +1,30 @@
 class Solution:
     def shortestPath(self, grid: List[List[int]], k: int) -> int:
-        def valid(row, col):
-            return 0 <= row < m and 0 <= col < n
-
-        q = deque([(0,0,k,0)])
-        seen = {(0,0,k)}
+        queue = deque([(0,0,k,0)]) #row, col, k, steps
+        seen = {(0,0,k)} #row, col, k
         m = len(grid)
         n = len(grid[0])
         directions = [(1,0), (0,1), (-1,0), (0,-1)]
 
-        while q:
-            row, col, remains, steps = q.popleft()
+        def valid(row, col):
+            return 0 <= row < m and 0 <= col < n
+
+        while queue:
+            row, col, remains, steps = queue.popleft()
             if row == m - 1 and col == n - 1:
                 return steps
             
-            for x, y in directions:
-                new_r, new_c = row + y, col + x
-                if valid(new_r, new_c):
-                    if grid[new_r][new_c] == 0:
-                        if (new_r, new_c, remains) not in seen:
-                            seen.add((new_r, new_c, remains))
-                            q.append((new_r, new_c, remains, steps + 1))
-                    elif remains and (new_r, new_c, remains - 1) not in seen:
-                        seen.add((new_r, new_c, remains - 1))
-                        q.append((new_r, new_c, remains - 1, steps + 1))
+            for dx, dy in directions:
+                new_row, new_col = dx + row, dy + col
+                if valid(new_row, new_col):
+                    if grid[new_row][new_col] == 0 and (new_row, new_col, remains) not in seen:
+                            seen.add((new_row, new_col, remains))
+                            queue.append((new_row, new_col, remains, steps + 1))
+                    elif remains and (new_row, new_col, remains - 1) not in seen:
+                        seen.add((new_row, new_col, remains - 1))
+                        queue.append((new_row, new_col, remains - 1, steps + 1))
+        
         return -1
+
 
         
