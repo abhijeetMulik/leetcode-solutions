@@ -1,34 +1,35 @@
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-
-        graph = defaultdict(dict)
-        for i in range(len(equations)):
-            n, d = equations[i]
-            val = values[i]
-            graph[n][d] = val
-            graph[d][n] = 1 / val
-            
-
-        def find_ans(start, end):
+        def helper(start, end):
             if start not in graph:
                 return -1
             
-            seen = {start}
-            stack = [(start, 1)] 
+            seen = {(start)}
+            stack = [(start, 1)] # start, ratio
 
             while stack:
-                node, steps = stack.pop()
+                node, ratio = stack.pop()
+
                 if node == end:
-                    return steps
+                    return ratio
+                
                 for neighbor in graph[node]:
                     if neighbor not in seen:
                         seen.add(neighbor)
-                        stack.append((neighbor, steps * graph[node][neighbor]))
+                        stack.append((neighbor, ratio * graph[node][neighbor]))
+            
             return -1
-                
+        
+        graph = defaultdict(dict)
+        for i in range(len(equations)):
+            num, den = equations[i]
+            val = values[i]
+            graph[num][den] = val
+            graph[den][num] = 1 / val
+        
         ans = []
-        for n, d in queries:
-            ans.append(find_ans(n, d))
+        for q in queries:
+            ans.append(helper(q[0], q[1]))
+        
         return ans
 
-        
