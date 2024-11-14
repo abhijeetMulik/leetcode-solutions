@@ -1,31 +1,34 @@
 class Solution:
     def maximumDetonation(self, bombs: List[List[int]]) -> int:
         graph = defaultdict(list)
+        n = len(bombs)
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    continue
+                xi, yi, ri = bombs[i]
+                xj, yj, _ = bombs[j]
 
-        for i in range(len(bombs)):
-            for j in range(1 + i, len(bombs)):
-                x1, y1, r1 = bombs[i]
-                x2, y2, r2 = bombs[j]
-                d = sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-                if d <= r1:
+                if ri ** 2 >= (xi - xj) ** 2 + (yi - yj) ** 2:
                     graph[i].append(j)
-                if d <= r2:
-                    graph[j].append(i)
         
-        def bfs(index):
-            q = deque([(index)])
+        def bfs(i):
+            queue = deque([i])
             seen = {i}
-            while q:
-                curr = q.popleft() # index
-                for neighbor in graph[curr]:
+            while queue:
+                node = queue.popleft()
+                for neighbor in graph[node]:
                     if neighbor not in seen:
                         seen.add(neighbor)
-                        q.append(neighbor)
+                        queue.append(neighbor)
             return len(seen)
-        
+
         res = 0
-        for i in range(len(bombs)):
-            res = max(res, bfs(i)) #bfs(i)
+        for i in range(n):
+            res = max(res, bfs(i))
+        
         return res
-            
-            
+
+                
+
+        
