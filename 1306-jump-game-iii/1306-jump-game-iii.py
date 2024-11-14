@@ -1,23 +1,29 @@
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
-        q = deque([(start, arr[start])]) #index, val
-        seen = {(start)} #index
-        n = len(arr)
+        queue = deque([(start)])
+        seen = {start}
 
-        while q:
-            index, val = q.popleft()
-            if val == 0:
+        def valid(index):
+            return 0 <= index < len(arr)
+
+        while queue:
+            idx = queue.popleft()
+
+            if arr[idx] == 0:
                 return True
-
-            high = index + arr[index]
-            low = index - arr[index]
-
-            if (0 <= high < n) and high not in seen:
-                seen.add(high)
-                q.append((high, arr[high]))
             
-            if (0 <= low < n)  and low not in seen:
-                seen.add(low)
-                q.append((low, arr[low]))
+            inc = idx + arr[idx]
+            if valid(inc) and inc not in seen:
+                seen.add(inc)
+                queue.append(inc)
+                
+            dec = idx - arr[idx]
+            if valid(dec) and dec not in seen:
+                seen.add(dec)
+                queue.append(dec)
         
         return False
+
+        
+
+        
