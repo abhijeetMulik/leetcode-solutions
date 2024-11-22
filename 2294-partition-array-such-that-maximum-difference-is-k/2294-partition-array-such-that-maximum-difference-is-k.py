@@ -1,17 +1,12 @@
 class Solution:
     def partitionArray(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        x = nums[0]
-        ans = []
-        a = []
+        nums.sort(reverse = True)
+        max_ele, ans = nums[0], 0
         for n in nums:
-            if abs(n - x) <= k:
-                a.append(n)
-            else:
-                ans.append(a)
-                x = n
-                a = []
-                a.append(n)
-        ans.append(a)
-        return len(ans)
+            if max_ele - n > k:
+                ans += 1
+                max_ele = n
+
+        return ans + 1
+
         
