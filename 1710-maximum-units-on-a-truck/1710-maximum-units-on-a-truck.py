@@ -1,19 +1,23 @@
 class Solution:
     def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
-        ans = 0
+        # heap = [(-n[1], n[0]) for n boxTypes]
         heap = []
-        for b in boxTypes:
-            heapq.heappush(heap, (-b[1], b[0]))
-        # print(heap)
+        for n in boxTypes:
+            heap.append((-n[1], n[0]))
+        heapq.heapify(heap)
+        units = 0
 
-        while truckSize > 0 and heap:
-            unit, box = heapq.heappop(heap)
-            if box <= truckSize:
-                ans += (box * -(unit))
+        while truckSize > 0 and len(heap) > 0:
+            max_ele = heapq.heappop(heap)
+            # condition = max_ele[1] // -max_ele[0]
+            if max_ele[1] <= truckSize:
+                units += -max_ele[0] * max_ele[1]
+                truckSize -= max_ele[1]
             else:
-                ans += (truckSize * -(unit))
-            truckSize -= box
-
-        return ans
-
+                # print(truckSize)
+                units += -max_ele[0] * truckSize
+                break
+            # print(units)
+        return units
         
+
