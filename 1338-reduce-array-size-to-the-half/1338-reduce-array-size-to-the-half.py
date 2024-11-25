@@ -1,16 +1,15 @@
 class Solution:
     def minSetSize(self, arr: List[int]) -> int:
         count = Counter(arr)
-        count = dict(sorted(count.items(), key = lambda x : x[1], reverse = True))
         n = len(arr)
-        goal = len(count) // 2
-        arr = set(arr)
+        count = dict(sorted(count.items(), key = lambda x :x[1], reverse = True))
+        val = list(count.values())
+        curr = 0
+        ans = 0
 
-        for key in count:
-            if (n <= goal) or (n - count[key] < goal):
+        for left in range(n):
+            curr += val[left]
+            ans += 1
+            if curr >= (n/2):
                 break
-            n -= count[key]
-            arr.discard(key)
-
-        return len(arr) if len(arr) > 0 else 1
-        
+        return ans
