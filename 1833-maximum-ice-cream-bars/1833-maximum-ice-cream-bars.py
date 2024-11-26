@@ -1,40 +1,24 @@
 class Solution:
     def maxIceCream(self, costs: List[int], coins: int) -> int:
-
-        def count_sort(costs):
-            max_element = max(costs)
-            min_element = min(costs)
-            range_of_elements = max_element - min_element + 1
-
-            # Initialize count array
-            count = [0] * range_of_elements
-
-            # Store count of each element
-            for cost in costs:
-                count[cost - min_element] += 1
-
-            # Modify count array to store the position of elements in sorted array
-            for i in range(1, range_of_elements):
-                count[i] += count[i - 1]
-
-            # Build the output array
-            output = [0] * len(costs)
-            for cost in reversed(costs):
-                output[count[cost - min_element] - 1] = cost
-                count[cost - min_element] -= 1
-
-            return output
-
-        sorted_count = count_sort(costs)
+        max_ele = max(costs)
+        count = [0] * (max_ele + 1)
         ans = 0
-        total = 0
-        for s in sorted_count:
-            if total + s <= coins:
-                total += s
-                ans += 1
-            else:
-                break
-      
-        return ans
 
+        for c in costs:
+            count[c] += 1
         
+        for i in range(1, len(count)):
+            count[i] += count[i - 1]
+        
+        sorted_op = [0] * len(costs)
+        for c in reversed(costs):
+            sorted_op[count[c] - 1] = c
+            count[c] -= 1
+        
+        for s in sorted_op:
+            if coins < s:
+                break
+            ans += 1
+            coins -= s
+
+        return ans
