@@ -4,20 +4,11 @@ class Solution:
         right = len(height) - 1
         water = 0
         while left < right:
-            container = min(height[left], height[right]) * (right - left)
-            water = max(water, container)
+            tmp = min(height[left], height[right]) * (right - left)
+            water = max(water, tmp)
             if height[left] < height[right]:
                 left += 1
             else:
                 right -= 1
-
-        return water
-
-
-
-
-            
-
-
-
         
+        return water
