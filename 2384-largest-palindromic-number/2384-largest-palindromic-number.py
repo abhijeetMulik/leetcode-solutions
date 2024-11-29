@@ -1,28 +1,23 @@
 class Solution:
     def largestPalindromic(self, num: str) -> str:
         count = Counter(num)
-        count = dict(sorted(count.items(), key = lambda x:x[0] ,reverse = True))
-        # print(count)
-        ans = []
-        max_ele = -inf
-        for c in count:
-            if count[c] > 1:
-                ans.append(c * (count[c]//2))
-                if count[c] % 2:
-                    count[c] -= round((count[c]/2))
-                if count[c] % 2 == 0:
-                    count[c] = 0
-        # print(count)
-        for i in count:
-            if count[i] > 0:
-                max_ele = i
+        count = dict(sorted(count.items(), reverse = True))
+        res = []
+        for c, val in count.items():
+            limit = val // 2
+            if limit > 0:
+                res.append(str(c) * limit)
+                val -= (limit * 2)
+                count[c] = val
+        res = ''.join(res)
+        mid = ''
+        for k, v in count.items():
+            if v == 1:
+                mid = k
                 break
-        x = []
-        x.extend(ans)
-        x.reverse()
-        if max_ele != -inf:
-            ans.append(str(max_ele))
-        ans.extend(x)
-        res = ''.join(ans).strip('0')
-        return res if len(res) > 0 else "0"
+        result = res + mid + res[::-1]
+        result = result.strip('0') 
+        # res = result[:-1]
+        return result if len(result) > 0 else "0"
+
         
