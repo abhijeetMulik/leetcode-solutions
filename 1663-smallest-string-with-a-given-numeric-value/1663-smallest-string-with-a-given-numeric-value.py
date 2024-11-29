@@ -7,10 +7,10 @@ class Solution:
         for i in range(n, 0, -1):
             limit = k - (i - 1)
             if limit > 26:
-                res[i - 1] = dic[26]
+                res[i - 1] = 'z'
                 k -= 26
             else:
-                res[i - 1] = dic[limit]
+                res[i - 1] = chr(ord('a') + limit - 1)
                 k -= limit
 
         return ''.join(res)
