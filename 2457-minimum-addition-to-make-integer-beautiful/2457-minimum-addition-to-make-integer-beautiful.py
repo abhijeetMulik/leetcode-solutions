@@ -1,18 +1,14 @@
 class Solution:
     def makeIntegerBeautiful(self, n: int, target: int) -> int:
-        def sumtoDigits(num):
-            digit = 0
-            for n in str(num):
-                digit += int(n)
-            return digit
-        
+        def digitsToSum(n):
+            digits = 0
+            for i in str(n):
+                digits += int(i)
+            print(digits)
+            return digits
         original = n
-        power_of_ten = 0
-
-        while sumtoDigits(n) > target:
+        power = 0
+        while digitsToSum(n) > target:
             n = n//10 + 1
-            power_of_ten += 1
-            
-        return n * (10 ** power_of_ten) - original
-
-        
+            power += 1
+        return n * (10 ** power) - original
