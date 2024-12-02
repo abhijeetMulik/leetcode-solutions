@@ -3,14 +3,14 @@ class Solution:
         moves = 0
         while target > 1:
             if target % 2 == 0 and maxDoubles > 0:
-                target //= 2     
+                target //= 2
                 maxDoubles -= 1
             else:
                 if maxDoubles == 0:
-                    moves += (target - 1)
+                    moves += (target -1)
                     break
                 target -= 1
             moves += 1
-        return moves
-
+        
+        return moves 
         
