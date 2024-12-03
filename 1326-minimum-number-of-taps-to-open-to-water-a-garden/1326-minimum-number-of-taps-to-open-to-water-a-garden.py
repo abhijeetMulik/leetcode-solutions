@@ -1,21 +1,22 @@
 class Solution:
     def minTaps(self, n: int, ranges: List[int]) -> int:
-        taps = []
+        area = []
         for i in range(n + 1):
-            taps.append([i - ranges[i], i + ranges[i]])
-        # print(taps)
-        start = 0
-        end = 0
+            area.append([i - ranges[i], i + ranges[i]])
+        i, start, end = 0, 0, 0
         count = 0
-        while start < n:
-            for t in taps:
-                if start >= t[0]:
-                    end = max(end, t[1])
-            if start == end:
-                return -1
-            start = end
+        area.sort()
+        print(area)
+
+        for i in range(len(area)):
+            while i < len(area) and area[i][0] <= start:
+                end = max(end, area[i][1])
+                i += 1
             count += 1
-
-        return count
-
+            start = end
+            if end >= n:
+                return count
+            
+        return count if end >= n else -1
+            
         
