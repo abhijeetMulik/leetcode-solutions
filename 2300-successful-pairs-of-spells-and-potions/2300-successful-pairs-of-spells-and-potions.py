@@ -1,23 +1,23 @@
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
         def binary_search(potions, target):
-            left = 0
-            right = len(potions) - 1
-            while left <= right:
+            left, right = 0, len(potions)
+            while(left < right):
                 mid = (left + right) // 2
-                if potions[mid] < target:
-                    left = mid + 1
+                if potions[mid] >= target:
+                    right = mid
                 else:
-                    right = mid - 1
-                    
+                    left = mid + 1
             return left
 
         potions.sort()
+        m = len(potions)
         ans = []
-        total = len(potions)
         for spell in spells:
-            index = binary_search(potions, success / spell)
-            ans.append(total - index)
+            res = binary_search(potions, success / spell)
+            ans.append(m - res)
+        
         return ans
+
 
         
